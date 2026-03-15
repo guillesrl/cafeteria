@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luma Café — Latte Art & Gourmet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5ECD7;
+    --cream-light: #FAF6EF;
+    --cream-mid: #EDE0C8;
+    --espresso: #3B2012;
+    --espresso-mid: #5C3520;
+    --espresso-light: #7A4A30;
+    --gold: #C8973A;
+    --gold-light: #E8BB6A;
+    --teal: #3A8C7A;
+    --teal-light: #E0F4EF;
+    --white: #FFFDF8;
+    --text-dark: #2A1A0E;
+    --text-mid: #5A3E28;
+    --text-muted: #9C7A5E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream-light);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 4rem;
+    background: rgba(245, 236, 215, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,151,58,0.18);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--espresso);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span {
+    font-size: 1.2rem;
+    color: var(--gold);
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-mid); text-decoration: none; font-weight: 700;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .btn-reserve {
+    background: var(--espresso);
+    color: var(--cream) !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+  .btn-reserve:hover { background: var(--espresso-mid) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh; min-height: 640px;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('cafe.png');
+    background-color: #3B2012;
+    background-size: cover; background-position: center;
+    transform: scale(1.05);
+    animation: heroZoom 12s ease-out forwards;
+  }
+  @keyframes heroZoom { to { transform: scale(1); } }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(30,14,5,0.72) 0%, rgba(30,14,5,0.28) 65%, transparent 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 620px;
+    padding: 0 4rem;
+    animation: fadeUp 1s 0.3s both;
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold-light); font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1.2rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--gold-light);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+    line-height: 1.12;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--gold-light);
+  }
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300;
+    color: rgba(255,253,248,0.82);
+    line-height: 1.65;
+    margin-bottom: 2.2rem;
+    max-width: 440px;
+  }
+  .hero-ctas { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--espresso);
+    padding: 0.85rem 2rem;
+    border-radius: 999px;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-video {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--white); text-decoration: none;
+    font-size: 0.83rem; font-weight: 700; letter-spacing: 0.08em;
+  }
+  .play-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.6);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s;
+  }
+  .play-icon svg { fill: white; width: 14px; margin-left: 2px; }
+  .btn-video:hover .play-icon { border-color: var(--gold-light); }
+
+  /* hero photo deco */
+  .hero-leaf {
+    position: absolute; right: 0; top: 0; bottom: 0; z-index: 1;
+    width: 52%; height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    opacity: 0.85;
+    animation: fadeUp 1.5s 0.8s both;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%),
+                        linear-gradient(to top, transparent 0%, black 18%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent 0%, black 30%),
+                linear-gradient(to top, transparent 0%, black 18%);
+    mask-composite: intersect;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--espresso);
+    padding: 2rem 4rem;
+    display: flex; justify-content: center; gap: 0;
+  }
+  .stat-item {
+    text-align: center;
+    padding: 0 3.5rem;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700;
+    color: var(--gold-light);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: rgba(245,236,215,0.65); font-weight: 700;
+    margin-top: 4px; display: block;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 6rem 4rem; }
+  .section-tag {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 0.8rem;
+  }
+  .section-tag::before {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    color: var(--espresso);
+    line-height: 1.18;
+    margin-bottom: 0.9rem;
+  }
+  .section-desc {
+    font-size: 1rem; color: var(--text-muted); line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── LATTE ART ── */
+  #latte { background: var(--cream-light); }
+  .latte-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .latte-card {
+    position: relative; overflow: hidden; border-radius: 16px;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+  }
+  .latte-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
+  }
+  .latte-card:hover img { transform: scale(1.07); }
+  .latte-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2rem 1.4rem 1.4rem;
+    background: linear-gradient(transparent, rgba(30,14,5,0.78));
+    color: white;
+  }
+  .latte-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 600;
+  }
+  .latte-sub { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin-top: 2px; }
+
+  .latte-intro { max-width: 540px; }
+
+  /* ── MENU ── */
+  #menu { background: var(--cream); }
+  .menu-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    margin-top: 0;
+  }
+  .menu-col-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--espresso);
+    border-bottom: 1px solid var(--cream-mid); padding-bottom: 0.8rem;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .gf-notice {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+    background: var(--teal-light); color: var(--teal);
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .dish-card {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 1.1rem 0; border-bottom: 1px solid rgba(200,151,58,0.15);
+  }
+  .dish-card:last-child { border-bottom: none; }
+  .dish-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--espresso); margin-bottom: 4px; }
+  .dish-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.55; max-width: 260px; }
+  .dish-price { font-weight: 700; font-size: 0.95rem; color: var(--gold); white-space: nowrap; margin-left: 1rem; padding-top: 2px; }
+  .gf-badge {
+    display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    background: var(--teal); color: white;
+    padding: 2px 7px; border-radius: 4px; margin-left: 6px; vertical-align: middle;
+  }
+  .gf-area-note {
+    margin-top: 1.5rem; padding: 0.9rem 1.1rem;
+    background: var(--teal-light); border-left: 3px solid var(--teal);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.82rem; color: var(--teal); line-height: 1.55;
+  }
+
+  /* ── WINES ── */
+  #wines {
+    background: var(--espresso);
+    position: relative; overflow: hidden;
+  }
+  #wines .section-tag { color: var(--gold-light); }
+  #wines .section-tag::before { background: var(--gold-light); }
+  #wines .section-title { color: var(--cream); }
+  #wines .section-desc { color: rgba(245,236,215,0.6); }
+  .wine-deco {
+    position: absolute; right: -80px; top: -80px;
+    width: 500px; opacity: 0.04;
+  }
+  .wines-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+  .wine-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,151,58,0.22);
+    border-radius: 16px; padding: 2rem 1.7rem;
+    transition: background 0.3s, transform 0.25s;
+  }
+  .wine-card:hover { background: rgba(200,151,58,0.08); transform: translateY(-4px); }
+  .wine-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .wine-type {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .wine-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; color: var(--cream); margin-bottom: 0.7rem;
+  }
+  .wine-region { font-size: 0.8rem; color: rgba(245,236,215,0.5); margin-bottom: 1rem; letter-spacing: 0.06em; }
+  .wine-notes { font-size: 0.88rem; color: rgba(245,236,215,0.72); line-height: 1.6; margin-bottom: 1.2rem; }
+  .wine-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(200,151,58,0.18); padding-top: 1rem; }
+  .wine-grape { font-size: 0.78rem; color: rgba(245,236,215,0.45); font-style: italic; }
+  .wine-price { font-weight: 700; font-size: 1rem; color: var(--gold-light); }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--cream-light); }
+  .testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .testi-card {
+    background: var(--white);
+    border: 1px solid var(--cream-mid);
+    border-radius: 16px; padding: 2.2rem;
+    position: relative;
+  }
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem; line-height: 0.7;
+    color: var(--cream-mid); position: absolute;
+    top: 1.2rem; left: 1.5rem;
+  }
+  .testi-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.1rem; line-height: 1.7;
+    color: var(--espresso-mid); margin-bottom: 1.5rem;
+    padding-top: 1.8rem;
+  }
+  .testi-footer { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--espresso); color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .testi-name { font-weight: 700; font-size: 0.9rem; color: var(--espresso); }
+  .testi-role { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+  .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 4px; }
+
+  /* ── RESERVATION ── */
+  #reservas {
+    background: var(--cream);
+    text-align: center;
+  }
+  #reservas .section-tag { justify-content: center; }
+  #reservas .section-tag::before { display: none; }
+  #reservas .section-title { max-width: none; }
+  #reservas .section-desc { margin-left: auto; margin-right: auto; text-align: center; }
+  .reserva-form {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    max-width: 780px; margin: 0 auto;
+    align-items: flex-end;
+  }
+  .form-group { flex: 1; min-width: 160px; text-align: left; }
+  .form-group label {
+    display: block; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 6px;
+  }
+  .form-group input, .form-group select {
+    width: 100%; padding: 0.8rem 1rem;
+    border: 1.5px solid var(--cream-mid);
+    border-radius: 10px; background: var(--white);
+    font-family: 'Lato', sans-serif; font-size: 0.9rem;
+    color: var(--text-dark);
+    outline: none; transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+  .btn-submit {
+    background: var(--espresso); color: var(--cream);
+    padding: 0.82rem 2.2rem; border: none; cursor: pointer;
+    border-radius: 999px; font-family: 'Lato', sans-serif;
+    font-size: 0.83rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .btn-submit:hover { background: var(--espresso-mid); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--espresso);
+    padding: 3.5rem 4rem 2rem;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(245,236,215,0.1);
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--cream);
+  }
+  .footer-tagline { font-size: 0.88rem; color: rgba(245,236,215,0.5); line-height: 1.65; margin-top: 0.7rem; max-width: 260px; }
+  .footer-social { display: flex; gap: 12px; margin-top: 1.3rem; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(245,236,215,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(245,236,215,0.6); text-decoration: none; font-size: 0.8rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-col h4 {
+    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); font-weight: 700; margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.55rem; }
+  .footer-col a { color: rgba(245,236,215,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold-light); }
+  .footer-col p { color: rgba(245,236,215,0.6); font-size: 0.88rem; line-height: 1.7; }
+  .footer-bottom {
+    padding-top: 1.8rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { font-size: 0.78rem; color: rgba(245,236,215,0.3); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 1; transform: translateY(0);
+    transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal.hidden { opacity: 0; transform: translateY(28px); }
+  .reveal.hidden.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── HAMBURGER ── */
+  .nav-toggle {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px; background: none; border: none;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--espresso); border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile {
+    display: none; flex-direction: column;
+    position: fixed; top: 60px; left: 0; right: 0; z-index: 99;
+    background: rgba(245,236,215,0.98);
+    backdrop-filter: blur(12px);
+    padding: 1.5rem 2rem 2rem;
+    border-bottom: 1px solid rgba(200,151,58,0.2);
+    gap: 1.2rem;
+  }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a {
+    font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-mid); text-decoration: none; font-weight: 700;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--cream-mid);
+  }
+  .nav-mobile a:last-child { border-bottom: none; }
+  .nav-mobile .btn-reserve-m {
+    margin-top: 0.5rem; text-align: center;
+    background: var(--espresso); color: var(--cream) !important;
+    padding: 0.75rem; border-radius: 999px; border: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    section { padding: 3.5rem 1.2rem; }
+    .hero-content { padding: 0 1.2rem; max-width: 100%; }
+    .hero-title { font-size: 2.4rem; }
+    .hero-sub { font-size: 0.95rem; }
+    .hero-ctas { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    .stats-bar { padding: 1.5rem 1rem; flex-wrap: wrap; gap: 1rem; }
+    .stat-item { padding: 0.8rem 1.2rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); width: 45%; text-align: center; }
+    .stat-item:last-child { border-bottom: none; }
+    .stat-number { font-size: 1.8rem; }
+    #latte > div { grid-template-columns: 1fr !important; gap: 2rem; }
+    .latte-grid { grid-template-columns: 1fr 1fr !important; }
+    .menu-cols { grid-template-columns: 1fr; gap: 2rem; }
+    .wines-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .reserva-form { flex-direction: column; }
+    .reserva-form .form-group { min-width: 100%; }
+    .section-title { font-size: 1.9rem; }
+  }
+
+  @media (max-width: 520px) {
+    nav { padding: 0.9rem 1rem; }
+    .nav-logo { font-size: 1.2rem; }
+    .hero-title { font-size: 2rem; }
+    .latte-grid { grid-template-columns: 1fr !important; }
+    .stat-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .footer-top { grid-template-columns: 1fr; }
+    .wine-card { padding: 1.4rem 1.2rem; }
+    .testi-card { padding: 1.5rem; }
+    #reservas { text-align: left; }
+    #reservas .section-tag { justify-content: flex-start; }
+    .btn-submit { width: 100%; }
+    .hero-ctas .btn-primary, .hero-ctas .btn-video { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <span>✦</span> Luma Café
+  </a>
+  <ul class="nav-links">
+    <li><a href="#latte">Latte Art</a></li>
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#wines">Vinos</a></li>
+    <li><a href="#testimonials">Reseñas</a></li>
+    <li><a href="#reservas" class="btn-reserve">Reservar Mesa</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="navMobile">
+  <a href="#latte" onclick="closeMobile()">Latte Art</a>
+  <a href="#menu" onclick="closeMobile()">Menú</a>
+  <a href="#wines" onclick="closeMobile()">Vinos</a>
+  <a href="#testimonials" onclick="closeMobile()">Reseñas</a>
+  <a href="#reservas" class="btn-reserve-m" onclick="closeMobile()">Reservar Mesa</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Coffee Time · Est. 2019</div>
+    <h1 class="hero-title">
+      Siempre es un Buen<br>momento para un<br>Buen <em>Cafe.</em>
+    </h1>
+    <p class="hero-sub">
+      Arte en cada taza, tapeo gourmet, opciones gluten free y los mejores vinos de la región.
+    </p>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn-primary">Explorar Menú</a>
+      <a href="#latte" class="btn-video">
+        <span class="play-icon">
+          <svg viewBox="0 0 12 14"><polygon points="1,1 11,7 1,13"/></svg>
+        </span>
+        Nuestro Arte
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-number">12+</span>
+    <span class="stat-label">Diseños de Latte Art</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">8</span>
+    <span class="stat-label">Platos Gluten Free</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">40+</span>
+    <span class="stat-label">Vinos Selectos</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">5★</span>
+    <span class="stat-label">Valoración Media</span>
+  </div>
+</div>
+
+<!-- LATTE ART -->
+<section id="latte">
+  <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: center;">
+    <div class="latte-intro reveal">
+      <div class="section-tag">Nuestro Craft</div>
+      <h2 class="section-title">El Café<br>como Arte</h2>
+      <p class="section-desc">
+        Cada taza es una obra efímera. Nuestros baristas crean patrones únicos usando técnicas de vertido libre, en granos de especialidad de origen único.
+      </p>
+      <a href="#reservas" class="btn-primary" style="font-size:0.82rem;">Reserva una Experiencia</a>
+    </div>
+    <div class="latte-grid">
+      <div class="latte-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=600&h=800&q=80" alt="Rosetta latte art" loading="lazy" onerror="this.src='https://picsum.photos/seed/rosetta/600/800'">
+        <div class="latte-label">
+          <div class="latte-name">Rosetta</div>
+          <div class="latte-sub">Vertido libre clásico</div>
+        </div>
+      </div>
+      <div class="latte-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&h=800&q=80" alt="Tulip latte art" loading="lazy" onerror="this.src='https://picsum.photos/seed/tulip/600/800'">
+        <div class="latte-label">
+          <div class="latte-name">Tulip</div>
+          <div class="latte-sub">Capas de precisión</div>
+        </div>
+      </div>
+      <div class="latte-card reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=600&h=800&q=80" alt="Swan latte art" loading="lazy" onerror="this.src='https://picsum.photos/seed/swan/600/800'">
+        <div class="latte-label">
+          <div class="latte-name">Swan</div>
+          <div class="latte-sub">Técnica avanzada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="reveal">
+    <div class="section-tag">La Carta</div>
+    <h2 class="section-title">Tapeo Gourmet<br>& Opciones Gluten Free</h2>
+  </div>
+  <div class="menu-cols">
+    <!-- Tapeo -->
+    <div class="reveal reveal-delay-1">
+      <div class="menu-col-title">
+        Tapeo & Gourmet
+      </div>
+      <div class="dish-card">
+        <div>
+          <div class="dish-name">Croquetas Trufadas</div>
+          <div class="dish-desc">Bechamel de trufa negra, jamón ibérico D.O. Guijuelo, panko artesanal.</div>
+        </div>
+        <div class="dish-price">8,50 €</div>
+      </div>
+      <div class="dish-card">
+        <div>
+          <div class="dish-name">Tabla Ibérica Premium</div>
+          <div class="dish-desc">Selección de charcutería ibérica, queso manchego curado, membrillo y nueces.</div>
+        </div>
+        <div class="dish-price">18,00 €</div>
+      </div>
+      <div class="dish-card">
+        <div>
+          <div class="dish-name">Tataki de Atún</div>
+          <div class="dish-desc">Atún rojo vuelta y vuelta, aliño de sésamo y jengibre, aguacate cremoso.</div>
+        </div>
+        <div class="dish-price">14,50 €</div>
+      </div>
+      <div class="dish-card">
+        <div>
+          <div class="dish-name">Risotto de Setas</div>
+          <div class="dish-desc">Arroz carnaroli, mezcla de setas silvestres, parmesano reggiano 24 meses.</div>
+        </div>
+        <div class="dish-price">13,00 €</div>
+      </div>
+    </div>
+
+    <!-- Gluten Free -->
+    <div class="reveal reveal-delay-2">
+      <div class="menu-col-title">
+        Gluten Free
+      </div>
+      <div class="dish-card">
+        <div>
+          <div class="dish-name">Carpaccio de Ternera <span class="gf-badge">GF</span></div>
+          <div class="dish-desc">Ternera gallega, rúcula, alcaparras, parmesano y aceite de oliva virgen extra.</div>
+        </div>
+        <div class="dish-price">13,50 €</div>
+      </div>
+      <div class="dish-card">
+        <div>
+          <div class="dish-name">Ensalada Quinoa <span class="gf-badge">GF🌿</span></div>
+          <div class="dish-desc">Quinoa tricolor, granada, aguacate, pepino y aderezo de limón.</div>
+        </div>
+        <div class="dish-price">9,50 €</div>
+      </div>
+      <div class="dish-card">
+        <div>
+          <div class="dish-name">Salmón con Verduras <span class="gf-badge">GF</span></div>
+          <div class="dish-desc">Salmón noruego al horno, verduras de temporada asadas, salsa de hierbas.</div>
+        </div>
+        <div class="dish-price">16,00 €</div>
+      </div>
+      <div class="dish-card">
+        <div>
+          <div class="dish-name">Brownie GF <span class="gf-badge">GF</span></div>
+          <div class="dish-desc">Brownie de chocolate negro sin gluten, helado de vainilla y caramelo salado.</div>
+        </div>
+        <div class="dish-price">7,00 €</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WINES -->
+<section id="wines">
+  <!-- Coffee beans deco -->
+  <svg class="wine-deco" viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg" fill="white">
+    <!-- Bean 1 - large center -->
+    <ellipse cx="160" cy="130" rx="62" ry="90" transform="rotate(-15 160 130)"/>
+    <path d="M118 80 Q160 130 202 80" fill="none" stroke="#3B2012" stroke-width="5"/>
+    <path d="M114 180 Q160 130 206 180" fill="none" stroke="#3B2012" stroke-width="5"/>
+    <!-- Bean 2 - top right -->
+    <ellipse cx="270" cy="60" rx="36" ry="52" transform="rotate(20 270 60)"/>
+    <path d="M249 25 Q270 60 291 25" fill="none" stroke="#3B2012" stroke-width="3"/>
+    <path d="M247 95 Q270 60 293 95" fill="none" stroke="#3B2012" stroke-width="3"/>
+    <!-- Bean 3 - bottom left -->
+    <ellipse cx="55" cy="280" rx="42" ry="60" transform="rotate(-25 55 280)"/>
+    <path d="M29 240 Q55 280 81 240" fill="none" stroke="#3B2012" stroke-width="3.5"/>
+    <path d="M27 320 Q55 280 83 320" fill="none" stroke="#3B2012" stroke-width="3.5"/>
+    <!-- Bean 4 - bottom right small -->
+    <ellipse cx="255" cy="330" rx="28" ry="40" transform="rotate(10 255 330)"/>
+    <path d="M237 302 Q255 330 273 302" fill="none" stroke="#3B2012" stroke-width="2.5"/>
+    <path d="M235 358 Q255 330 275 358" fill="none" stroke="#3B2012" stroke-width="2.5"/>
+    <!-- scattered dots -->
+    <circle cx="80" cy="100" r="5"/>
+    <circle cx="220" cy="200" r="4"/>
+    <circle cx="140" cy="360" r="6"/>
+    <circle cx="300" cy="180" r="3"/>
+  </svg>
+
+  <div class="reveal">
+    <div class="section-tag">Bodega Selecta</div>
+    <h2 class="section-title" style="color: var(--cream);">Nuestra Carta<br>de Vinos</h2>
+    <p class="section-desc">Maridajes cuidadosamente seleccionados para elevar cada bocado. Del Priorat al Champagne, una colección que cuenta historias.</p>
+  </div>
+  <div class="wines-grid">
+    <div class="wine-card reveal reveal-delay-1">
+      <div class="wine-icon">🍷</div>
+      <div class="wine-type">Vino Tinto</div>
+      <div class="wine-name">Finca Dofi 2020</div>
+      <div class="wine-region">Priorat, Cataluña · DO Qualificada</div>
+      <p class="wine-notes">Garnacha y Cariñena de suelos de pizarra. Fruta negra, balsámico y un tanino sedoso de larga crianza.</p>
+      <div class="wine-footer">
+        <span class="wine-grape">Garnacha · Cariñena</span>
+        <span class="wine-price">9,50 € / copa</span>
+      </div>
+    </div>
+    <div class="wine-card reveal reveal-delay-2">
+      <div class="wine-icon">🥂</div>
+      <div class="wine-type">Vino Blanco</div>
+      <div class="wine-name">Pazo de Señorans 2022</div>
+      <div class="wine-region">Rías Baixas, Galicia · DO</div>
+      <p class="wine-notes">Albariño atlántico de aromas florales y cítricos. Fresco, mineral y con una acidez vibrante que limpia el paladar.</p>
+      <div class="wine-footer">
+        <span class="wine-grape">Albariño 100%</span>
+        <span class="wine-price">7,00 € / copa</span>
+      </div>
+    </div>
+    <div class="wine-card reveal reveal-delay-3">
+      <div class="wine-icon">✨</div>
+      <div class="wine-type">Espumoso</div>
+      <div class="wine-name">Gramona III Lustros</div>
+      <div class="wine-region">Penedès, Cataluña · Corpinnat</div>
+      <p class="wine-notes">Cava de larga crianza, 60 meses en rima. Brioche, frutos secos y burbuja finísima. El maridaje perfecto para nuestro tapeo.</p>
+      <div class="wine-footer">
+        <span class="wine-grape">Xarel·lo · Macabeo</span>
+        <span class="wine-price">10,00 € / copa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div style="text-align:center;" class="reveal">
+    <div class="section-tag" style="justify-content:center;"><span style="display:none"></span>Reseñas</div>
+    <h2 class="section-title">Lo que dicen<br>nuestros clientes</h2>
+  </div>
+  <div class="testi-grid" style="margin-top:3rem;">
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="quote-mark">"</div>
+      <p class="testi-text">
+        El latte art más bonito que he visto fuera de Japón. La Rosetta era tan perfecta que casi no me atrevía a beberlo. Y las croquetas trufadas son adictivas.
+      </p>
+      <div class="testi-footer">
+        <div class="testi-avatar">MA</div>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="testi-name">María Alonso</div>
+          <div class="testi-role">Blogger gastronómica · Madrid</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="quote-mark">"</div>
+      <p class="testi-text">
+        Por fin un lugar donde puedo comer tranquila siendo celíaca. La zona GF separada me da total confianza. Los vinos, de un nivel extraordinario para ser un café.
+      </p>
+      <div class="testi-footer">
+        <div class="testi-avatar" style="background:var(--teal);">SR</div>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="testi-name">Sara Rodríguez</div>
+          <div class="testi-role">Arquitecta · Barcelona</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVAS -->
+<section id="reservas">
+  <div class="reveal">
+    <div class="section-tag" style="justify-content:center;">¿Nos visitas?</div>
+    <h2 class="section-title">Reserva tu Mesa</h2>
+    <p class="section-desc">Asegura tu lugar y vive la experiencia Luma. Te confirmamos en menos de 24 horas.</p>
+  </div>
+  <form class="reserva-form reveal reveal-delay-1" onsubmit="handleReserva(event)">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" placeholder="Tu nombre" required>
+    </div>
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" required>
+    </div>
+    <div class="form-group">
+      <label for="hora">Hora</label>
+      <select id="hora" required>
+        <option value="">Seleccionar</option>
+        <option>10:00</option><option>11:00</option><option>12:00</option>
+        <option>13:00</option><option>14:00</option><option>19:00</option>
+        <option>20:00</option><option>21:00</option><option>22:00</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="personas">Personas</label>
+      <select id="personas" required>
+        <option value="">Nº personas</option>
+        <option>1</option><option>2</option><option>3</option>
+        <option>4</option><option>5</option><option>6+</option>
+      </select>
+    </div>
+    <button type="submit" class="btn-submit">Confirmar Reserva</button>
+  </form>
+  <p id="reserva-msg" style="margin-top:1.5rem;font-size:0.9rem;color:var(--teal);font-weight:700;display:none;">
+    ✓ ¡Reserva recibida! Te confirmamos en breve.
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">✦ Luma Café</div>
+      <p class="footer-tagline">Arte en cada taza. Placer en cada bocado. Bienvenido a nuestra mesa.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">ig</a>
+        <a href="#" class="social-btn">fb</a>
+        <a href="#" class="social-btn">tw</a>
+        <a href="#" class="social-btn">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Menú</h4>
+      <ul>
+        <li><a href="#latte">Latte Art</a></li>
+        <li><a href="#menu">Tapeo Gourmet</a></li>
+        <li><a href="#menu">Gluten Free</a></li>
+        <li><a href="#wines">Carta de Vinos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Horario</h4>
+      <p>Lunes — Viernes<br>08:00 – 22:30</p>
+      <p style="margin-top:0.8rem;">Sábado — Domingo<br>09:00 – 23:00</p>
+    </div>
+    <div class="footer-col">
+      <h4>Dónde Estamos</h4>
+      <p>Carrer de la Llum, 14<br>08001 Barcelona<br><br>+34 93 000 0000<br>hola@lumacafe.es</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Luma Café · Todos los derechos reservados</span>
+    <span class="footer-copy">Diseñado con ♥ y mucho café</span>
+  </div>
+</footer>
+
+<script>
+  // Hamburger menu
+  const toggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('navMobile');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() {
+    toggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
+  // Scroll reveal — sólo si IntersectionObserver disponible
+  if ('IntersectionObserver' in window) {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => el.classList.add('hidden'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+    // Fallback seguro: 800ms
+    setTimeout(() => {
+      document.querySelectorAll('.reveal.hidden:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 800);
+  }
+
+  // Sticky nav shrink
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 60) { nav.style.padding = '0.7rem 4rem'; }
+    else { nav.style.padding = '1.1rem 4rem'; }
+  });
+
+  // Reservation form
+  function handleReserva(e) {
+    e.preventDefault();
+    const msg = document.getElementById('reserva-msg');
+    msg.style.display = 'block';
+    e.target.reset();
+    setTimeout(() => { msg.style.display = 'none'; }, 4000);
+  }
