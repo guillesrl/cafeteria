@@ -532,9 +532,71 @@
     .btn-submit { width: 100%; }
     .hero-ctas .btn-primary, .hero-ctas .btn-video { font-size: 0.8rem; }
   }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(30, 14, 5, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .modal-overlay.active { opacity: 1; visibility: visible; }
+  .modal {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem 2.2rem;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
+    transform: translateY(20px);
+    transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
+  }
+  .modal-overlay.active .modal { transform: translateY(0); }
+  .modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    animation: popIn 0.4s cubic-bezier(.25,.46,.45,.94);
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--espresso);
+    margin-bottom: 0.5rem;
+  }
+  .modal-msg {
+    font-size: 1rem; color: var(--text-muted);
+    line-height: 1.6; margin-bottom: 1.8rem;
+  }
+  .btn-modal-close {
+    background: var(--espresso); color: var(--cream);
+    padding: 0.8rem 2rem; border: none; border-radius: 999px;
+    font-family: 'Lato', sans-serif; font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+  }
+  .btn-modal-close:hover { background: var(--espresso-mid); transform: translateY(-2px); }
 </style>
 </head>
 <body>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="reservaModal">
+  <div class="modal">
+    <span class="modal-icon">✓</span>
+    <h3 class="modal-title">¡Reserva Confirmada!</h3>
+    <p class="modal-msg">Te esperamos con los brazos abiertos 😀</p>
+    <button class="btn-modal-close" onclick="closeModal()">Cerrar</button>
+  </div>
+</div>
 
 <!-- NAVBAR -->
 <nav id="navbar">
@@ -946,7 +1008,13 @@
   // Reservation form
   function handleReserva(e) {
     e.preventDefault();
-    alert('Reserva confirmada! Te esperamos 😀');
+    const modal = document.getElementById('reservaModal');
+    modal.classList.add('active');
     e.target.reset();
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('reservaModal');
+    modal.classList.remove('active');
   }
 </script>
