@@ -467,14 +467,18 @@
 
   .nav-mobile {
     display: none; flex-direction: column;
-    position: fixed; top: 60px; left: 0; right: 0; z-index: 99;
+    position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
     background: rgba(245,236,215,0.98);
     backdrop-filter: blur(12px);
     padding: 1.5rem 2rem 2rem;
     border-bottom: 1px solid rgba(200,151,58,0.2);
     gap: 1.2rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
   }
-  .nav-mobile.open { display: flex; }
+  .nav-mobile.open { display: flex; max-height: 400px; opacity: 1; }
   .nav-mobile a {
     font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--text-mid); text-decoration: none; font-weight: 700;
