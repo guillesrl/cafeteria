@@ -593,7 +593,7 @@
   <div class="modal">
     <span class="modal-icon">✓</span>
     <h3 class="modal-title">¡Reserva Confirmada!</h3>
-    <p class="modal-msg">Te esperamos con los brazos abiertos 😀</p>
+    <p class="modal-msg">Te esperamos, <span id="modalNombre"></span> 😀</p>
     <button class="btn-modal-close" onclick="closeModal()">Cerrar</button>
   </div>
 </div>
@@ -1008,6 +1008,9 @@
   // Reservation form
   function handleReserva(e) {
     e.preventDefault();
+    const nombre = document.getElementById('nombre').value;
+    const modalNombre = document.getElementById('modalNombre');
+    modalNombre.textContent = nombre || 'amigo/a';
     const modal = document.getElementById('reservaModal');
     modal.classList.add('active');
     e.target.reset();
