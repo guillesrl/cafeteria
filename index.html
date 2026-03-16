@@ -867,9 +867,6 @@
     </div>
     <button type="submit" class="btn-submit">Confirmar Reserva</button>
   </form>
-  <p id="reserva-msg" style="margin-top:1.5rem;font-size:0.9rem;color:var(--teal);font-weight:700;display:none;">
-    Reserva confirmada! Te esperamos 😀
-  </p>
 </section>
 
 <!-- FOOTER -->
@@ -949,9 +946,7 @@
   // Reservation form
   function handleReserva(e) {
     e.preventDefault();
-    const msg = document.getElementById('reserva-msg');
-    msg.style.display = 'block';
+    alert('Reserva confirmada! Te esperamos 😀');
     e.target.reset();
-    setTimeout(() => { msg.style.display = 'none'; }, 4000);
   }
 </script>
