@@ -361,46 +361,6 @@
   .testi-role { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
   .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 4px; }
 
-  /* ── RESERVATION ── */
-  #reservas {
-    background: var(--cream);
-    text-align: center;
-  }
-  #reservas .section-tag { justify-content: center; }
-  #reservas .section-tag::before { display: none; }
-  #reservas .section-title { max-width: none; }
-  #reservas .section-desc { margin-left: auto; margin-right: auto; text-align: center; }
-  .reserva-form {
-    display: flex; gap: 1rem; flex-wrap: wrap;
-    max-width: 780px; margin: 0 auto;
-    align-items: flex-end;
-  }
-  .form-group { flex: 1; min-width: 160px; text-align: left; }
-  .form-group label {
-    display: block; font-size: 0.75rem; font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text-muted); margin-bottom: 6px;
-  }
-  .form-group input, .form-group select {
-    width: 100%; padding: 0.8rem 1rem;
-    border: 1.5px solid var(--cream-mid);
-    border-radius: 10px; background: var(--white);
-    font-family: 'Lato', sans-serif; font-size: 0.9rem;
-    color: var(--text-dark);
-    outline: none; transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
-  .btn-submit {
-    background: var(--espresso); color: var(--cream);
-    padding: 0.82rem 2.2rem; border: none; cursor: pointer;
-    border-radius: 999px; font-family: 'Lato', sans-serif;
-    font-size: 0.83rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-    transition: background 0.2s, transform 0.15s;
-    white-space: nowrap;
-  }
-  .btn-submit:hover { background: var(--espresso-mid); transform: translateY(-1px); }
-
   /* ── FOOTER ── */
   footer {
     background: var(--espresso);
@@ -527,76 +487,11 @@
     .footer-top { grid-template-columns: 1fr; }
     .wine-card { padding: 1.4rem 1.2rem; }
     .testi-card { padding: 1.5rem; }
-    #reservas { text-align: left; }
-    #reservas .section-tag { justify-content: flex-start; }
-    .btn-submit { width: 100%; }
     .hero-ctas .btn-primary, .hero-ctas .btn-video { font-size: 0.8rem; }
   }
-
-  /* Modal */
-  .modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(30, 14, 5, 0.65);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  .modal-overlay.active { opacity: 1; visibility: visible; }
-  .modal {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 2.5rem 2.2rem;
-    max-width: 380px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
-    transform: translateY(20px);
-    transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
-  }
-  .modal-overlay.active .modal { transform: translateY(0); }
-  .modal-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1.2rem;
-    display: block;
-    animation: popIn 0.4s cubic-bezier(.25,.46,.45,.94);
-  }
-  @keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    60% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  .modal-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem; color: var(--espresso);
-    margin-bottom: 0.5rem;
-  }
-  .modal-msg {
-    font-size: 1rem; color: var(--text-muted);
-    line-height: 1.6; margin-bottom: 1.8rem;
-  }
-  .btn-modal-close {
-    background: var(--espresso); color: var(--cream);
-    padding: 0.8rem 2rem; border: none; border-radius: 999px;
-    font-family: 'Lato', sans-serif; font-weight: 700;
-    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
-    cursor: pointer; transition: background 0.2s, transform 0.15s;
-  }
-  .btn-modal-close:hover { background: var(--espresso-mid); transform: translateY(-2px); }
 </style>
 </head>
 <body>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="reservaModal">
-  <div class="modal">
-    <span class="modal-icon">✓</span>
-    <h3 class="modal-title">¡Reserva Confirmada!</h3>
-    <p class="modal-msg">Te esperamos, <span id="modalNombre"></span> 😀</p>
-    <button class="btn-modal-close" onclick="closeModal()">Cerrar</button>
-  </div>
-</div>
 
 <!-- NAVBAR -->
 <nav id="navbar">
@@ -608,7 +503,6 @@
     <li><a href="#menu">Menú</a></li>
     <li><a href="#wines">Vinos</a></li>
     <li><a href="#testimonials">Reseñas</a></li>
-    <li><a href="#reservas" class="btn-reserve">Reservar Mesa</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
     <span></span><span></span><span></span>
@@ -621,7 +515,6 @@
   <a href="#menu" onclick="closeMobile()">Menú</a>
   <a href="#wines" onclick="closeMobile()">Vinos</a>
   <a href="#testimonials" onclick="closeMobile()">Reseñas</a>
-  <a href="#reservas" class="btn-reserve-m" onclick="closeMobile()">Reservar Mesa</a>
 </div>
 
 <!-- HERO -->
@@ -894,43 +787,6 @@
   </div>
 </section>
 
-<!-- RESERVAS -->
-<section id="reservas">
-  <div class="reveal">
-    <div class="section-tag" style="justify-content:center;">¿Nos visitas?</div>
-    <h2 class="section-title">Reserva tu Mesa</h2>
-    <p class="section-desc">Asegura tu lugar y vive la experiencia Luma. Te confirmamos en menos de 24 horas.</p>
-  </div>
-  <form class="reserva-form reveal reveal-delay-1" onsubmit="handleReserva(event)">
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" placeholder="Tu nombre" required>
-    </div>
-    <div class="form-group">
-      <label for="fecha">Fecha</label>
-      <input type="date" id="fecha" required>
-    </div>
-    <div class="form-group">
-      <label for="hora">Hora</label>
-      <select id="hora" required>
-        <option value="">Seleccionar</option>
-        <option>10:00</option><option>11:00</option><option>12:00</option>
-        <option>13:00</option><option>14:00</option><option>19:00</option>
-        <option>20:00</option><option>21:00</option><option>22:00</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="personas">Personas</label>
-      <select id="personas" required>
-        <option value="">Nº personas</option>
-        <option>1</option><option>2</option><option>3</option>
-        <option>4</option><option>5</option><option>6+</option>
-      </select>
-    </div>
-    <button type="submit" class="btn-submit">Confirmar Reserva</button>
-  </form>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -1004,20 +860,15 @@
     if (window.scrollY > 60) { nav.style.padding = '0.7rem 4rem'; }
     else { nav.style.padding = '1.1rem 4rem'; }
   });
-
-  // Reservation form
-  function handleReserva(e) {
-    e.preventDefault();
-    const nombre = document.getElementById('nombre').value;
-    const modalNombre = document.getElementById('modalNombre');
-    modalNombre.textContent = nombre || 'amigo/a';
-    const modal = document.getElementById('reservaModal');
-    modal.classList.add('active');
-    e.target.reset();
-  }
-
-  function closeModal() {
-    const modal = document.getElementById('reservaModal');
-    modal.classList.remove('active');
-  }
 </script>
+
+  <!-- Cal floating-popup embed code begins -->
+  <script type="text/javascript">
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "reservas", {origin:"https://app.cal.com"});
+    Cal.ns.reservas("floatingButton", {"calLink":"cafeteria/reservas","config":{"layout":"month_view","useSlotsViewOnSmallScreen":"true"},"buttonText":"Reserva tu Mesa!"});
+    Cal.ns.reservas("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+  </script>
+  <!-- Cal floating-popup embed code ends -->
+</body>
+</html>
