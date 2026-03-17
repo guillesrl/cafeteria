@@ -330,25 +330,26 @@
 
   /* ── FOOTER ── */
   footer {
-    background: var(--espresso);
+    background: var(--cream);
     padding: 3.5rem 4rem 2rem;
+    border-top: 1px solid var(--cream-mid);
   }
   .footer-top {
     display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 3rem; padding-bottom: 2.5rem;
-    border-bottom: 1px solid rgba(245,236,215,0.1);
+    border-bottom: 1px solid var(--cream-mid);
   }
   .footer-brand {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem; color: var(--cream);
+    font-size: 1.6rem; color: var(--espresso);
   }
-  .footer-tagline { font-size: 0.88rem; color: rgba(245,236,215,0.5); line-height: 1.65; margin-top: 0.7rem; max-width: 260px; }
+  .footer-tagline { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-top: 0.7rem; max-width: 260px; }
   .footer-social { display: flex; gap: 12px; margin-top: 1.3rem; }
   .social-btn {
     width: 36px; height: 36px; border-radius: 50%;
-    border: 1px solid rgba(245,236,215,0.2);
+    border: 1px solid var(--espresso);
     display: flex; align-items: center; justify-content: center;
-    color: rgba(245,236,215,0.6); text-decoration: none; font-size: 0.8rem;
+    color: var(--espresso); text-decoration: none; font-size: 0.8rem;
     transition: border-color 0.2s, color 0.2s;
   }
   .social-btn:hover { border-color: var(--gold); color: var(--gold); }
@@ -358,14 +359,14 @@
   }
   .footer-col ul { list-style: none; }
   .footer-col li { margin-bottom: 0.55rem; }
-  .footer-col a { color: rgba(245,236,215,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
-  .footer-col a:hover { color: var(--gold-light); }
-  .footer-col p { color: rgba(245,236,215,0.6); font-size: 0.88rem; line-height: 1.7; }
+  .footer-col a { color: var(--text-mid); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-col p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; }
   .footer-bottom {
     padding-top: 1.8rem;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .footer-copy { font-size: 0.78rem; color: rgba(245,236,215,0.3); }
+  .footer-copy { font-size: 0.78rem; color: var(--text-muted); }
 
   /* ── SCROLL ANIMATIONS ── */
   .reveal {
